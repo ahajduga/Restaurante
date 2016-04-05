@@ -1,9 +1,7 @@
 package com.restaurante.controllers;
 
-import com.restaurante.persistence.Reservation;
 import com.restaurante.persistence.Table;
 
-import java.util.Date;
 import java.util.List;
 
 /**
