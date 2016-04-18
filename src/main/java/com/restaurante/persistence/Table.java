@@ -1,13 +1,17 @@
 package com.restaurante.persistence;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 /**
  * Created by alex on 29.03.16.
  */
+@Entity
 public class Table {
-
+    @Id
     @Column(name="table_ID")
     private int tableID;
 
@@ -15,6 +19,7 @@ public class Table {
     private int seats;
 
     @Column(name="bookings")
+    @OneToMany
     private List<Booking> bookings;
 
     public int getTableID() {

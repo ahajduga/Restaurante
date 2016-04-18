@@ -2,24 +2,36 @@ package com.restaurante.controllers;
 
 import com.restaurante.persistence.Booking;
 import com.restaurante.persistence.Table;
+import com.restaurante.persistence.User;
 import com.restaurante.persistence.dao.BookingDao;
 import com.restaurante.persistence.dao.TableDao;
+import com.restaurante.persistence.dao.UserDao;
 import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.*;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import org.springframework.mail.MailSender;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  * Created by alex on 29.03.16.
  */
+
 @RestController
 public class BookingController {
 
@@ -28,6 +40,26 @@ public class BookingController {
 
     @Autowired
     BookingDao bookingDao;
+
+    @Autowired
+    UserDao userDao;
+    @Autowired
+    JavaMailSender javaMailSender;
+    private void send(String to, String subject, String message) {
+        MimeMessage mail = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(mail, true);
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } finally {}
+        javaMailSender.send(mail);
+    }
+
+
+
 
     @RequestMapping(value = "/getActiveReservations", method = RequestMethod.GET)
     public List<Booking> getActiveBookings(){
@@ -41,6 +73,40 @@ public class BookingController {
         booking.setActive(false);
         bookingDao.save(booking);
     }
+
+    @RequestMapping(value = "/book/{id}", method= RequestMethod.GET)
+    public Map<String,String> bookTable(
+            @PathVariable Integer tableID,
+            @RequestParam(value="user_ID", required = true) Long userID,
+            @RequestParam(value="from", required = true) String dateFrom,
+            @RequestParam(value="to", required = true) String dateTo) throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH", Locale.ENGLISH);
+        Date from = format.parse(dateFrom);
+        Date to = format.parse(dateTo);
+        Map<String,String> resultMap = new HashMap<>();
+        for(Booking b : tableDao.findOne((long)tableID).getBookings()){
+            if(!b.isActive()){
+                if((!b.getDateStart().before(from) && !b.getDateStart().after(to)) || !b.getDateEnd().after(to) && !b.getDateEnd().before(from)){
+                    resultMap.put("msg", "invalid");
+                }
+                else{
+                    Table table = tableDao.findOne((long)tableID);
+                    Booking bookingToSave = new Booking();
+                    bookingToSave.setActive(true);
+                    bookingToSave.setDateStart(from);
+                    bookingToSave.setDateEnd(to);
+                    table.getBookings().add(bookingToSave);
+                    tableDao.save(table);
+                    User user = userDao.findOne(userID);
+                    String message = "Rezerwacja zatwierdzona dla uzytkownika " + user.getLogin() + ", na czas od " + from.toString() + " do " + to.toString();
+                    send(user.getMail(),"Rezerwacja zatwierdzona", message);
+                    resultMap.put("msg","ok");
+                }
+            }
+        }
+        return null;
+    }
+
 
     @RequestMapping(value = "/getLatestReservations", method = RequestMethod.GET)
     public List<Booking> getLatestReservations(
