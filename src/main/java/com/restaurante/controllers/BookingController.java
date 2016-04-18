@@ -5,6 +5,7 @@ import com.restaurante.persistence.Table;
 import com.restaurante.persistence.dao.BookingDao;
 import com.restaurante.persistence.dao.TableDao;
 import org.apache.commons.lang3.time.DateUtils;
+import org.hibernate.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,39 @@ public class BookingController {
 
     @Autowired
     BookingDao bookingDao;
+
+    @RequestMapping(value = "/getActiveReservations", method = RequestMethod.GET)
+    public List<Booking> getActiveBookings(){
+        return bookingDao.findByActive(true);
+
+    }
+    @RequestMapping(value = "/disableReservation", method = RequestMethod.GET)
+    public void disableReservation(
+            @RequestParam(value = "booking_ID", required = true) Long bookingID){
+        Booking booking = bookingDao.findOne(bookingID);
+        booking.setActive(false);
+        bookingDao.save(booking);
+    }
+
+    @RequestMapping(value = "/getLatestReservations", method = RequestMethod.GET)
+    public List<Booking> getLatestReservations(
+            @RequestParam(value = "from", required = true) String dateFrom) throws ParseException{
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH", Locale.ENGLISH);
+        Date from = format.parse(dateFrom);
+        List<Booking> result = new LinkedList<>();
+        Iterator<Booking> iterator = bookingDao.findAll().iterator();
+        while(iterator.hasNext()){
+            Booking currentBooking = iterator.next();
+            if(currentBooking.getDateEnd().after(from))
+                result.add(currentBooking);
+        }
+        return result;
+    }
+
+
+
+
+
 
     @RequestMapping(value = "/getFreeBookings", method = RequestMethod.GET)
     public TreeMap<Date, Date> getFreeBookings(
