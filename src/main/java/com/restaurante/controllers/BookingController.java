@@ -126,7 +126,38 @@ public class BookingController {
 
 
 
+    @RequestMapping(value = "/getFreeTables", method = RequestMethod.GET)
+    public TreeSet<Table> getFreeTables(
+            @RequestParam(value = "from", required = true) String dateFrom,
+            @RequestParam(value = "to", required = true) String dateTo) throws ParseException {
 
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH", Locale.ENGLISH);
+        Date from = format.parse(dateFrom);
+        Date to = format.parse(dateTo);
+
+        TreeSet<Table> freeTables = new TreeSet<>();
+
+        for(Table t : tableDao.findAll()) {
+
+            boolean available = true;
+
+            for (Booking b : t.getBookings()) {
+                if (b.isActive()
+                        && (b.getDateStart().after(from) || b.getDateStart().equals(from))
+                        && (b.getDateEnd().before(to) || b.getDateEnd().equals(to))) {
+
+                    available = false;
+                    continue;
+                }
+            }
+
+            if(available){
+                freeTables.add(t);
+            }
+        }
+
+        return freeTables;
+    }
 
     @RequestMapping(value = "/getFreeBookings", method = RequestMethod.GET)
     public TreeMap<Date, Date> getFreeBookings(
