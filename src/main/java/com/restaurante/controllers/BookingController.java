@@ -15,6 +15,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
@@ -31,7 +32,7 @@ import javax.mail.internet.MimeMessage;
 /**
  * Created by alex on 29.03.16.
  */
-
+@PreAuthorize("permitAll")
 @RestController
 public class BookingController {
 

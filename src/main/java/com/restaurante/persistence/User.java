@@ -2,16 +2,32 @@ package com.restaurante.persistence;
 
 
 import javax.persistence.*;
+import javax.persistence.Table;
+import java.util.Set;
 
 /**
  * Created by alex on 29.03.16.
  */
 @Entity
-@javax.persistence.Table(name = "sys_users")
+@Table(name="users")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "userType", discriminatorType = DiscriminatorType.STRING)
 public class User {
-@Id
-private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name="mail")
     private String mail;
+
+    @Column(name="login")
+    private String username;
+
+    @Column(name="password")
+    private String password;
+
+    @OneToMany(mappedBy = "user")
+    private Set<UserRole> roles;
 
     public String getMail() {
         return mail;
@@ -20,9 +36,6 @@ private Long id;
     public void setMail(String mail) {
         this.mail = mail;
     }
-
-    private String login;
-    private int type;
 
     public Long getId() {
         return id;
@@ -33,20 +46,26 @@ private Long id;
     }
 
     public String getLogin() {
-        return login;
+        return username;
     }
 
     public void setLogin(String login) {
-        this.login = login;
+        this.username = login;
     }
 
-    public int getType() {
-        return type;
+    public String getPassword() {
+        return password;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
 
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
+    }
 }
