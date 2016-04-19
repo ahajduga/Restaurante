@@ -58,8 +58,7 @@ public class AccountController {
     public User updateUserData(
             @PathVariable String login,
             @RequestParam(value = "password", required = false) String password,
-            @RequestParam(value = "mail", required = false) String mail,
-            @RequestParam(value = "type", required = false) Integer type
+            @RequestParam(value = "mail", required = false) String mail
     ) {
         User user = null;
         for (User p : userDao.findAll()) {
@@ -69,11 +68,9 @@ public class AccountController {
             }
         }
         if (password != null)
-            user.setPassword(password);
+            user.setPassword(new ShaPasswordEncoder().encodePassword(password,""));
         if (mail != null)
             user.setLogin(mail);
-//        if (type != null)
-//            user.setType(type);
         userDao.save(user);
 
         return user;
