@@ -37,7 +37,7 @@ public class TableController {
 
     @RequestMapping(value = "/tables/{id}", method = RequestMethod.POST)
     public Table updateTable(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @RequestParam(value = "seats", required = true) Integer seats
     ){
         Table table = null;
@@ -55,7 +55,7 @@ public class TableController {
 
     @RequestMapping(value = "/tables/{id}", method = RequestMethod.DELETE)
     public boolean deleteTable(
-            @PathVariable Integer id
+            @PathVariable Long id
     ){
         Table table = null;
         for (Table p : tableDao.findAll()) {

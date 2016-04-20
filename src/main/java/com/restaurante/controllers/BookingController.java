@@ -75,9 +75,9 @@ public class BookingController {
         bookingDao.save(booking);
     }
 
-    @RequestMapping(value = "/book/{id}", method= RequestMethod.GET)
+    @RequestMapping(value = "/book/{tableID}", method= RequestMethod.GET)
     public Map<String,String> bookTable(
-            @PathVariable Integer tableID,
+            @PathVariable Long tableID,
             @RequestParam(value="user_ID", required = true) Long userID,
             @RequestParam(value="from", required = true) String dateFrom,
             @RequestParam(value="to", required = true) String dateTo) throws ParseException {
@@ -85,27 +85,28 @@ public class BookingController {
         Date from = format.parse(dateFrom);
         Date to = format.parse(dateTo);
         Map<String,String> resultMap = new HashMap<>();
-        for(Booking b : tableDao.findOne((long)tableID).getBookings()){
-            if(!b.isActive()){
-                if((!b.getDateStart().before(from) && !b.getDateStart().after(to)) || !b.getDateEnd().after(to) && !b.getDateEnd().before(from)){
-                    resultMap.put("msg", "invalid");
-                }
-                else{
-                    Table table = tableDao.findOne((long)tableID);
+//        for(Booking b : tableDao.findOne(tableID).getBookings()){
+//            if(!b.isActive()){
+//                if((!b.getDateStart().before(from) && !b.getDateStart().after(to)) || !b.getDateEnd().after(to) && !b.getDateEnd().before(from)){
+//                    resultMap.put("msg", "invalid");
+//                }
+//                else{
+                    Table table = tableDao.findOne(tableID);
                     Booking bookingToSave = new Booking();
                     bookingToSave.setActive(true);
                     bookingToSave.setDateStart(from);
                     bookingToSave.setDateEnd(to);
                     table.getBookings().add(bookingToSave);
+                    bookingDao.save(bookingToSave);
                     tableDao.save(table);
                     User user = userDao.findOne(userID);
                     String message = "Rezerwacja zatwierdzona dla uzytkownika " + user.getLogin() + ", na czas od " + from.toString() + " do " + to.toString();
                     send(user.getMail(),"Rezerwacja zatwierdzona", message);
                     resultMap.put("msg","ok");
-                }
-            }
-        }
-        return null;
+//                }
+//            }
+//        }
+        return resultMap;
     }
 
 

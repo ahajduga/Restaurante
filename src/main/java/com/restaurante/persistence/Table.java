@@ -8,12 +8,13 @@ import java.util.List;
  */
 @Entity
 @javax.persistence.Table(name="tables")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Table {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name="table_ID")
-    private int tableID;
+    private Long tableID;
 
     @Column(name="seats")
     private int seats;
@@ -22,11 +23,11 @@ public class Table {
     @OneToMany
     private List<Booking> bookings;
 
-    public int getTableID() {
+    public Long getTableID() {
         return tableID;
     }
 
-    public void setTableID(int tableID) {
+    public void setTableID(Long tableID) {
         this.tableID = tableID;
     }
 

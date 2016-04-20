@@ -1,14 +1,13 @@
 package com.restaurante.persistence;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by alex on 29.03.16.
  */
 @Entity
+@javax.persistence.Table(name="booking")
 public class Booking {
 
     public Long getId() {
@@ -36,8 +35,9 @@ public class Booking {
     }
 
     @Id
-    @Column(name="booking_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column(name="booking_start")
     private Date dateStart;
 
