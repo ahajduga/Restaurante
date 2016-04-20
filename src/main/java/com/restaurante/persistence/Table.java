@@ -1,19 +1,18 @@
 package com.restaurante.persistence;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by alex on 29.03.16.
  */
 @Entity
-@javax.persistence.Table(name="tabless")
+@javax.persistence.Table(name="tables")
 public class Table {
+
     @Id
-    @Column(name="table_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name="table_ID")
     private int tableID;
 
     @Column(name="seats")
