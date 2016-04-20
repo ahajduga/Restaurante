@@ -10,6 +10,7 @@ import java.util.List;
  * Created by alex on 29.03.16.
  */
 @Entity
+@javax.persistence.Table(name="tabless")
 public class Table {
     @Id
     @Column(name="table_ID")
