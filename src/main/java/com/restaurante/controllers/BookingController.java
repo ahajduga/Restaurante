@@ -128,7 +128,7 @@ public class BookingController {
 
 
     @RequestMapping(value = "/getFreeTables", method = RequestMethod.GET)
-    public TreeSet<Table> getFreeTables(
+    public List<Table> getFreeTables(
             @RequestParam(value = "from", required = true) String dateFrom,
             @RequestParam(value = "to", required = true) String dateTo) throws ParseException {
 
@@ -136,7 +136,7 @@ public class BookingController {
         Date from = format.parse(dateFrom);
         Date to = format.parse(dateTo);
 
-        TreeSet<Table> freeTables = new TreeSet<>();
+        ArrayList<Table> freeTables = new ArrayList<>();
 
         for(Table t : tableDao.findAll()) {
 
