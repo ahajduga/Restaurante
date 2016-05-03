@@ -1,0 +1,25 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Data</th>
+        <th>Godzina</th>
+        <th>Użytkownik</th>
+        <th>Akcja</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="reservation in reservations" id="{{reservation.id}}">
+        <td>{{ reservation.id }}</td>
+        <td>{{ reservation.dateStart }}</td>
+        <td>18:00</td>
+        <td>{{ reservation.email }}</td>
+        <td ng-if="reservation.active">
+            <button class="btn btn-warning" type="submit" ng-click="deactivate(reservation.id)">Dezaktywuj</button>
+        </td>
+        <td ng-if="!reservation.active">
+            <span class="">Nieaktywna</span>
+        </td>
+    </tr>
+    </tbody>
+</table>

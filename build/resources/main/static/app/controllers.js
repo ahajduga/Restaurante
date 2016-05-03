@@ -59,3 +59,14 @@ restauranteControllers.controller('StaffController', ['$scope', 'Staff', functio
         });
     }
 }]);
+
+restauranteControllers.controller('ReservationController', ['$scope', 'Reservation', function($scope, Reservation){
+    var reservations = Reservation.getActiveReservations().query();
+    $scope.reservations = reservations;
+
+    $scope.deactivate = function(id){
+        var reservationRow = $('#'+id);
+        console.log(id);
+        console.log(reservationRow);
+    }
+}]);

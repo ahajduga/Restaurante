@@ -90,3 +90,14 @@ restauranteServices.factory('Staff', ['$resource', function($resource){
         }
     }
 }]);
+
+restauranteServices.factory('Reservation', ['$resource', function($resource){
+    return {
+        getActiveReservations: function(){
+            return $resource('/getActiveReservations');
+        },
+        deactivateReservation: function(){
+            return $resource('/disableReservation');
+        }
+    }
+}]);

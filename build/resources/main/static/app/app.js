@@ -19,6 +19,11 @@ restauranteApp.config(function($routeProvider) {
             controller  : 'StaffController'
         })
 
+        .when('/reservations', {
+            templateUrl : 'views/dashboard/reservations.html',
+            controller  : 'ReservationController'
+        })
+
         // route for the contact page
         .when('/contact', {
             templateUrl : 'pages/contact.html',
