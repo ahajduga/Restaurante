@@ -97,7 +97,7 @@ restauranteServices.factory('Reservation', ['$resource', function($resource){
             return $resource('/getActiveReservations');
         },
         deactivateReservation: function(){
-            return $resource('/disableReservation');
+            return $resource('/disableReservation?booking_ID=:id');
         }
     }
 }]);

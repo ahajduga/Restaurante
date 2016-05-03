@@ -65,8 +65,9 @@ restauranteControllers.controller('ReservationController', ['$scope', 'Reservati
     $scope.reservations = reservations;
 
     $scope.deactivate = function(id){
-        var reservationRow = $('#'+id);
-        console.log(id);
-        console.log(reservationRow);
+        Reservation.deactivateReservation().get({id: id}, function(){
+            var reservationRow = $('#'+id);
+            reservationRow.remove();
+        });
     }
 }]);
