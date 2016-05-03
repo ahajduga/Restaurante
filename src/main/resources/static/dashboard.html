@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html ng-app="restauranteApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <!-- Morris -->
+    <link href="css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body ng-controller="DashboardController">
+<div id="wrapper">
+    <div ng-include src="'views/dashboard/menu.html'"></div>
+
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <span class="m-r-sm text-muted welcome-message">Witaj w panelu administracyjnym</span>
+                    </li>
+                    <li>
+                        <a href="login.html">
+                            <i class="fa fa-sign-out"></i> Wyloguj się
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-9">
+                <h2>Dashboard</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="dashboard.html">Home</a>
+                    </li>
+                    <li class="active">
+                        <strong>Strona główna</strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content">
+            <div ng-view></div>
+        </div>
+
+
+        <div class="footer">
+            <div>
+                <strong>Copyright</strong> Pizzeria Logos &copy; 2016
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-resource.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-route.js"></script>
+<script src="app/app.js"></script>
+<script src="app/services.js"></script>
+<script src="app/controllers.js"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Flot -->
+<script src="js/plugins/flot/jquery.flot.js"></script>
+<script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="js/plugins/flot/jquery.flot.spline.js"></script>
+<script src="js/plugins/flot/jquery.flot.resize.js"></script>
+<script src="js/plugins/flot/jquery.flot.pie.js"></script>
+<script src="js/plugins/flot/jquery.flot.symbol.js"></script>
+<script src="js/plugins/flot/curvedLines.js"></script>
+
+<!-- Peity -->
+<script src="js/plugins/peity/jquery.peity.min.js"></script>
+<script src="js/demo/peity-demo.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="js/inspinia.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+
+<!-- jQuery UI -->
+<script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- ChartJS-->
+<script src="js/plugins/chartJs/Chart.min.js"></script>
+
+<!--<script>-->
+    <!--$(document).ready(function() {-->
+        <!--var lineData = {-->
+            <!--labels: ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec"],-->
+            <!--datasets: [-->
+                <!--{-->
+                    <!--label: "Example dataset",-->
+                    <!--fillColor: "rgba(26,179,148,0.5)",-->
+                    <!--strokeColor: "rgba(26,179,148,0.7)",-->
+                    <!--pointColor: "rgba(26,179,148,1)",-->
+                    <!--pointStrokeColor: "#fff",-->
+                    <!--pointHighlightFill: "#fff",-->
+                    <!--pointHighlightStroke: "rgba(26,179,148,1)",-->
+                    <!--data: [48, 48, 60, 39, 56, 37, 30]-->
+                <!--},-->
+                <!--{-->
+                    <!--label: "Example dataset",-->
+                    <!--fillColor: "rgba(191,45,39,0.5)",-->
+                    <!--strokeColor: "rgba(191,45,39,0.7)",-->
+                    <!--pointColor: "rgba(191,45,39,1)",-->
+                    <!--pointStrokeColor: "#fff",-->
+                    <!--pointHighlightFill: "#fff",-->
+                    <!--pointHighlightStroke: "rgba(26,179,148,1)",-->
+                    <!--data: [10, 28, 11, 12, 15, 12, 20]-->
+                <!--}-->
+            <!--]-->
+        <!--};-->
+
+        <!--var lineOptions = {-->
+            <!--scaleShowGridLines: true,-->
+            <!--scaleGridLineColor: "rgba(0,0,0,.05)",-->
+            <!--scaleGridLineWidth: 1,-->
+            <!--bezierCurve: true,-->
+            <!--bezierCurveTension: 0.4,-->
+            <!--pointDot: true,-->
+            <!--pointDotRadius: 4,-->
+            <!--pointDotStrokeWidth: 1,-->
+            <!--pointHitDetectionRadius: 20,-->
+            <!--datasetStroke: true,-->
+            <!--datasetStrokeWidth: 2,-->
+            <!--datasetFill: true,-->
+            <!--responsive: true,-->
+        <!--};-->
+
+
+        <!--var ctx = document.getElementById("lineChart").getContext("2d");-->
+        <!--var myNewChart = new Chart(ctx).Line(lineData, lineOptions);-->
+
+    <!--});-->
+<!--</script>-->
+</body>
+</html>
