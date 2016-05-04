@@ -1,6 +1,6 @@
 var restauranteControllers = angular.module('restauranteControllers', []);
 
-restauranteApp.controller('TableController', ['$scope', 'FreeTable', 'Date', 'Seatmap', '$http', '$resource', function($scope, FreeTable, Date, Seatmap, $http, $resource){
+restauranteApp.controller('TableController', ['$scope', 'Book', 'FreeTable', 'Date', 'Seatmap', '$http', '$resource', function($scope, Book, FreeTable, Date, Seatmap, $http, $resource){
     Seatmap.registerClickHandler();
 
     $scope.hourChange = function(){
@@ -31,11 +31,14 @@ restauranteApp.controller('TableController', ['$scope', 'FreeTable', 'Date', 'Se
 
     $scope.reserve = function(){
         var IDsToReserve = Seatmap.getSelectedTablesIDs();
-        if(IDsToReserve.length == 0) {
-            $("#noTablesError").show();
-            return;
-        }
-        $('#waitingModal').modal('show');
+        //if(IDsToReserve.length == 0) {
+        //    $("#noTablesError").show();
+        //    return;
+        //}
+        //$('#waitingModal').modal('show');
+        var tableFrom = Date.getRestDate($scope.hour);
+        var tableTo = Date.getRestDate(parseInt($scope.hour)+1);
+        Book.book().query({tableID: IDsToReserve, userID: 3, from: tableFrom, to: tableTo});
     }
 }]);
 
