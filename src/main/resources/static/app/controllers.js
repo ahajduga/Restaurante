@@ -1,13 +1,13 @@
 var restauranteControllers = angular.module('restauranteControllers', []);
 
-restauranteApp.controller('TableController', ['$scope', 'FreeTable', 'Date', 'Seatmap', '$http', '$resource', function($scope, FreeTable, Date, Seatmap, $http, $resource){
+restauranteApp.controller('TableController', ['$scope', 'FreeTable', 'Date', 'Seatmap', 'Book', '$http', '$resource', '$window', function($scope, FreeTable, Date, Seatmap, Book, $http, $resource, $window){
     Seatmap.registerClickHandler();
 
     $scope.hourChange = function(){
         $("#noTablesError").hide();
         Seatmap.deselectTables();
         var tableFrom = Date.getRestDate($scope.hour);
-        var tableTo = Date.getRestDate(parseInt($scope.hour)+1);
+        var tableTo = Date.getRestDate(23);
         $scope.tables = FreeTable.query({from: tableFrom, to: tableTo});
         var loader = $('#loader');
         var room = $('#room');
@@ -36,6 +36,30 @@ restauranteApp.controller('TableController', ['$scope', 'FreeTable', 'Date', 'Se
             return;
         }
         $('#waitingModal').modal('show');
+
+        angular.forEach(IDsToReserve, function(value, key){
+            Book.bookTable().get({tableID: value, userID: 1, from: Date.getRestDate($scope.hour), to: Date.getRestDate(23)}, function(){
+
+
+            });
+        });
+
+        $('#waitingModal').modal('hide');
+        $('#confModal').modal('show');
+
+        $scope.date = Date.getDate();
+
+        var confTablesSvg = document.getElementById("confirmation-seats").contentDocument;
+
+        angular.forEach(IDsToReserve, function(value, key){
+            var tableId = "table-"+value;
+            var table = $(confTablesSvg.getElementById(tableId));
+            table.addClass('table-selected');
+        });
+    }
+
+    $scope.endBookingProcess = function(){
+        $window.location.href = "/bookend.html";
     }
 }]);
 
