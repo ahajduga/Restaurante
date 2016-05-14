@@ -83,6 +83,9 @@ restauranteServices.factory('Book', ['$resource', function($resource){
         },
         getBookings: function(){
             return $resource('/book/:userID?from=:from&to=:to');
+        },
+        book: function(){
+            return $resource('/book/:tableID?user_ID=:userID&from=:from&to=:to');
         }
     }
 }]);

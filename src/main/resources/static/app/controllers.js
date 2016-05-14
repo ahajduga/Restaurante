@@ -31,6 +31,7 @@ restauranteApp.controller('TableController', ['$scope', 'FreeTable', 'Date', 'Se
 
     $scope.reserve = function(){
         var IDsToReserve = Seatmap.getSelectedTablesIDs();
+
         if(IDsToReserve.length == 0) {
             $("#noTablesError").show();
             return;
