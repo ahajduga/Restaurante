@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="restauranteApp">
+<head>
+    <title>Strona główna</title>
+    <meta charset="UTF-8">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Animation CSS -->
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/tables.css" rel="stylesheet">
+    <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+</head>
+<body class="landing-page pace-done" ng-controller="TableController">
+<section id="reservation">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <h1>Dziękujemy za rezerwację stolika!</h1>
+            <h2>Zapraszamy serdecznie do naszej restauracji!</h2>
+            <p class="col-md-offset-9 col-md-3">Do zobaczenia!</p>
+        </div>
+    </div>
+</section>
+
+<div ng-include src="'modal.html'"></div>
+<div ng-include src="'confirmation.html'"></div>
+
+<script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="js/plugins/toastr/toastr.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-resource.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-route.js"></script>
+<script src="app/app.js"></script>
+<script src="app/services.js"></script>
+<script src="app/controllers.js"></script>
+</body>
+</html>

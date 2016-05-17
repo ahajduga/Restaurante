@@ -144,12 +144,23 @@ public class BookingController {
             boolean available = true;
 
             for (Booking b : t.getBookings()) {
-                if (b.isActive()
-                        && (b.getDateStart().after(from) || b.getDateStart().equals(from))
-                        && (b.getDateEnd().before(to) || b.getDateEnd().equals(to))) {
+
+                if (b.isActive() &&
+
+                        (((b.getDateStart().after(from) || b.getDateStart().compareTo(from)==0) && (b.getDateStart().before(to)))
+
+                        ||
+
+                        ((b.getDateEnd().after(from)) && (b.getDateEnd().before(to) || b.getDateEnd().compareTo(to)==0))
+
+                        ||
+
+                        ((b.getDateStart().before(from) || b.getDateStart().compareTo(from)==0) && (b.getDateEnd().after(to) || b.getDateEnd().compareTo(to)==0)))
+
+                        ){
 
                     available = false;
-                    continue;
+                    break;
                 }
             }
 

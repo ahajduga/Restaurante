@@ -8,7 +8,8 @@ restauranteServices.factory('FreeTable', ['$resource',
 restauranteServices.factory('Date', function(){
     return {
         getDate: function(){
-            return new Date().toJSON().slice(0,10);
+            var date = new Date();
+            return new Date(date.getTime() + date.getTimezoneOffset() * 60000).toJSON().slice(0, 10);
         },
         getRestDate: function(hour){
             return this.getDate() + "-" + hour;
@@ -74,6 +75,9 @@ restauranteServices.factory('Seatmap', function(){
 
 restauranteServices.factory('Book', ['$resource', function($resource){
     return {
+        bookTable: function(){
+          return $resource('/book/:tableID?user_ID=:userID&from=:from&to=:to')
+        },
         getLatestBookings: function(){
             return $resource('/getLatestReservations?from=:from');
         },
