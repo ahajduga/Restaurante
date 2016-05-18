@@ -20,19 +20,15 @@
                         <div class="col-md-4">
                             <ul class="stat-list m-t-lg">
                                 <li>
-                                    <h2 class="no-margins">38</h2>
+                                    <h2 class="no-margins">{{ dashboard.todaysBooks || 'brak' }}</h2>
                                     <small>Rezerwacje dzisiaj</small>
                                     <div class="progress progress-mini">
-                                        <div class="progress-bar" style="width: 56%;"></div>
+                                        <div class="progress-bar" style="width: {{ dashborad.percentage }};"></div>
                                     </div>
                                 </li>
                                 <li>
-                                    <h2 class="no-margins">67</h2>
+                                    <h2 class="no-margins">{{ dashboard.yesterdayBooks || 'brak' }}</h2>
                                     <small>Rezerwacje wczoraj</small>
-                                </li>
-                                <li>
-                                    <h2>Legenda</h2>
-
                                 </li>
                             </ul>
                         </div>
@@ -96,20 +92,16 @@
                         <th>Ilość osób</th>
                         <th>Data</th>
                         <th>Godzina</th>
-                        <th>Użytkownik</th>
-                        <th>Telefon</th>
                         <th>Mail</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="booking in dashboard.bookings">
-                        <td>1</td>
-                        <td>3</td>
-                        <td>28 marca 2016 r.</td>
-                        <td>15:00</td>
-                        <td class="text-navy">Paweł Hemperek</td>
-                        <td>768 342 109</td>
-                        <td>jakis_adres@wp.pl</td>
+                        <td>{{ booking.id }}</td>
+                        <td>6</td>
+                        <td>{{ booking.dateStart | date:'dd.MM.yyyy' : 'UTC+1' }} r.</td>
+                        <td>{{ booking.dateStart | date:'HH:mm'}}</td>
+                        <td class="text-navy">{{ booking.email || 'brak' }}</td>
                     </tr>
                     </tbody>
                 </table>

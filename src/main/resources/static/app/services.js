@@ -42,6 +42,13 @@ restauranteServices.factory('Seatmap', function(){
                 }
             );
         },
+        makeAllTablesTaken: function(){
+            var tables = this.getTables();
+            angular.forEach(tables, function(value, key){
+                $(value).addClass('table-taken');
+                $(value).attr('available', false);
+            });
+        },
         getSelectedTablesIDs: function(){
             var IDs = [];
             var selectedTables = $(document.getElementById("seats").contentDocument.getElementsByClassName("table-selected"));
@@ -86,6 +93,15 @@ restauranteServices.factory('Book', ['$resource', function($resource){
         },
         book: function(){
             return $resource('/book/:tableID?user_ID=:userID&from=:from&to=:to');
+        },
+        getChartData: function(){
+            return $resource('/stats');
+        },
+        getBookCount: function(){
+            return $resource('/recent');
+        },
+        getTotalBookCount: function(){
+            return $resource('/count');
         }
     }
 }]);
