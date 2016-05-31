@@ -25,10 +25,8 @@ restauranteApp.controller('TableController', ['$scope', 'FreeTable', 'Date', 'Se
             loader.show();
             var tablesSvg = document.getElementById("seats").contentDocument;
             Seatmap.makeAllTablesTaken();
-            console.log(tables);
             angular.forEach(tables, function(value, key)
                 {
-                    console.log("DUUUUPA");
                     var tableId = "table-"+value.tableID;
                     /*if(value.seats == 0){
                      var table = $(tablesSvg.getElementById(tableId));

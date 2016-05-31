@@ -53,6 +53,18 @@ public class Booking {
     @Column(name="active")
     private boolean active;
 
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    @Column(name="mail")
+    private String mail;
+
+
     public Date getDateStart() {
         return dateStart;
     }
