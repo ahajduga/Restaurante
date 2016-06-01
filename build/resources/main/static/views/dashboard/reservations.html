@@ -13,7 +13,7 @@
         <td>{{ reservation.id }}</td>
         <td>{{ reservation.dateStart | date:'dd.MM.yyyy' : 'UTC+1' }} r.</td>
         <td>{{ reservation.dateStart | date:'HH:mm'}}</td>
-        <td>{{ reservation.email }}</td>
+        <td>{{ reservation.mail }}</td>
         <td ng-if="reservation.active">
             <button class="btn btn-warning" type="submit" ng-click="deactivate(reservation.id)">Dezaktywuj</button>
         </td>

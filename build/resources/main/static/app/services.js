@@ -13,6 +13,9 @@ restauranteServices.factory('Date', function(){
         },
         getRestDate: function(hour){
             return this.getDate() + "-" + hour;
+        },
+        getSpecificDate: function(date, hour){
+            return date + "-" + hour;
         }
     };
 });
@@ -91,7 +94,7 @@ restauranteServices.factory('Seatmap', function(){
 restauranteServices.factory('Book', ['$resource', function($resource){
     return {
         bookTable: function(){
-          return $resource('/book/:tableID?user_ID=:userID&from=:from&to=:to')
+          return $resource('/book/:tableID?user_ID=:userID&from=:from&to=:to&mail=:mail')
         },
         getLatestBookings: function(){
             return $resource('/getLatestReservations?from=:from');

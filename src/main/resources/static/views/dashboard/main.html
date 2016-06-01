@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-xs-8 text-right">
                             <span> Obsługa </span>
-                            <h2 class="font-bold">3</h2>
+                            <h2 class="font-bold">1</h2>
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                         <td>6</td>
                         <td>{{ booking.dateStart | date:'dd.MM.yyyy' : 'UTC+1' }} r.</td>
                         <td>{{ booking.dateStart | date:'HH:mm'}}</td>
-                        <td class="text-navy">{{ booking.email || 'brak' }}</td>
+                        <td class="text-navy">{{ booking.mail || 'brak' }}</td>
                     </tr>
                     </tbody>
                 </table>

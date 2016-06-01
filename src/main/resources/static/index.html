@@ -12,16 +12,23 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/tables.css" rel="stylesheet">
     <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="css/plugins/datepicker/datepicker3.css" rel="stylesheet">
 </head>
 <body class="landing-page pace-done" ng-controller="TableController">
     <section id="reservation">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <h1>Wybierz datę</h1>
+                <input type="text" placeholder="Data rezerwacji" ng-model="date" ng-change="dateChange()" class="form-control" id="reservationDate">
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <h1>Podaj adres e-mail</h1>
                 <input type="text" placeholder="Adres e-mail" ng-model="mail" class="form-control">
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="hourSelect" style="display: none;">
             <div class="col-md-4 col-md-offset-4">
                 <h1>Wybierz godzinę</h1>
                 <select class="form-control" ng-change="hourChange()" ng-model="hour">
@@ -52,12 +59,12 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-top: 60px; display: none;" id="room">
+        <div class="row" style="display: none;" id="room">
             <div class="col-md-12">
                 <object data="/app/seats.svg" type="image/svg+xml" class="col-md-2 col-md-offset-5" id="seats"></object>
             </div>
         </div>
-        <div class="row" style="margin-top: 60px">
+        <div class="row" style="margin-top: 60px;">
             <div class="col-md-4 col-md-offset-4" id="noTablesError" style="display: none;">
                 <div class="alert alert-danger" role="alert">Wybierz stoliki do rezerwacji!</div>
             </div>
@@ -73,6 +80,8 @@
     <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="js/plugins/toastr/toastr.min.js"></script>
+    <script src="js/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="js/plugins/datepicker/bootstrap-datepicker.pl.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-resource.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-route.js"></script>
