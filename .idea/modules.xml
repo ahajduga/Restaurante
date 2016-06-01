@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Restaurante.iml" filepath="$PROJECT_DIR$/Restaurante.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Restaurante.iml" filepath="$PROJECT_DIR$/.idea/modules/Restaurante.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Restaurante_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Restaurante_main.iml" group="Restaurante" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Restaurante_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Restaurante_test.iml" group="Restaurante" />
     </modules>
   </component>
 </project>

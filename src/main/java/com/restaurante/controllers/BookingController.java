@@ -156,8 +156,21 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/getActiveReservations", method = RequestMethod.GET)
-    public List<Booking> getActiveBookings() {
-        return bookingDao.findByActive(true);
+    //todo asdasd
+    public Map<Booking,List<Table>> getActiveBookings() {
+        Map<Booking,List<Table>> result = new LinkedHashMap<>();
+        List<Booking> activeBookings = bookingDao.findByActive(true);
+        for(Booking b : activeBookings){
+            Date dateStart = b.getDateStart();
+            Date dateEnd = b.getDateEnd();
+            try {
+                List<Table> tables = getFreeTables(dateStart.toString(),dateEnd.toString());
+                result.put(b,tables);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
 
     }
 
@@ -174,7 +187,8 @@ public class BookingController {
             @PathVariable Long tableID,
             @RequestParam(value = "user_ID", required = true) Long userID,
             @RequestParam(value = "from", required = true) String dateFrom,
-            @RequestParam(value = "to", required = true) String dateTo) throws ParseException {
+            @RequestParam(value = "to", required = true) String dateTo,
+            @RequestParam(value = "mail", required = false) String mail) throws ParseException {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH", Locale.ENGLISH);
         Date from = format.parse(dateFrom);
         Date to = format.parse(dateTo);
@@ -190,6 +204,7 @@ public class BookingController {
         bookingToSave.setActive(true);
         bookingToSave.setDateStart(from);
         bookingToSave.setDateEnd(to);
+        bookingToSave.setMail(mail);
         table.getBookings().add(bookingToSave);
         bookingDao.save(bookingToSave);
         tableDao.save(table);
