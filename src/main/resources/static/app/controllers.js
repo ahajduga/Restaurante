@@ -9,6 +9,7 @@ restauranteApp.controller('TableController', ['$scope', 'FreeTable', 'Date', 'Se
         $("#noTablesError").hide();
         Seatmap.deselectTables();
         var tableFrom = Date.getRestDate($scope.hour);
+        console.log($scope.mail);
         var tableTo = Date.getRestDate(23);
 
         var tables = FreeTable.query({from: tableFrom, to: tableTo}, function(){
@@ -46,19 +47,6 @@ restauranteApp.controller('TableController', ['$scope', 'FreeTable', 'Date', 'Se
     $scope.reserve = function(){
         var IDsToReserve = Seatmap.getSelectedTablesIDs();
 
-        if(IDsToReserve.length == 0) {
-            $("#noTablesError").show();
-            return;
-        }
-        $('#waitingModal').modal('show');
-
-        angular.forEach(IDsToReserve, function(value, key){
-            Book.bookTable().get({tableID: value, userID: 1, from: Date.getRestDate($scope.hour), to: Date.getRestDate(23)}, function(){
-
-
-            });
-        });
-
         $('#waitingModal').modal('hide');
         $('#confModal').modal('show');
 
@@ -75,6 +63,12 @@ restauranteApp.controller('TableController', ['$scope', 'FreeTable', 'Date', 'Se
 
     $scope.endBookingProcess = function(){
         $window.location.href = "/bookend.html";
+        var IDsToReserve = Seatmap.getSelectedTablesIDs();
+        angular.forEach(IDsToReserve, function(value, key){
+            Book.bookTable().get({tableID: value, userID: 1, from: Date.getRestDate($scope.hour), to: Date.getRestDate(23)}, function(){
+
+            });
+        });
     }
 }]);
 

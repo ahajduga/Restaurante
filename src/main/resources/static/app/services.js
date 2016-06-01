@@ -76,6 +76,14 @@ restauranteServices.factory('Seatmap', function(){
                     table.removeClass('table-selected')
                 }
             }
+
+            var IDsToReserve = this.getSelectedTablesIDs();
+            if(IDsToReserve.length == 0) {
+                $('#reserveButton').attr("disabled", true);
+            }
+            else{
+                $('#reserveButton').attr("disabled", false);
+            }
         }
     };
 });
