@@ -164,7 +164,10 @@ public class BookingController {
             Date dateStart = b.getDateStart();
             Date dateEnd = b.getDateEnd();
             try {
-                List<Table> tables = getFreeTables(dateStart.toString(),dateEnd.toString());
+                //todo abc
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH");
+
+                List<Table> tables = getFreeTables(df.format(dateStart),df.format(dateEnd));
                 result.put(b,tables);
             } catch (ParseException e) {
                 e.printStackTrace();
