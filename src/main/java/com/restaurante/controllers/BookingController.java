@@ -156,24 +156,8 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/getActiveReservations", method = RequestMethod.GET)
-    //todo asdasd
-    public Map<Booking,List<Table>> getActiveBookings() {
-        Map<Booking,List<Table>> result = new LinkedHashMap<>();
-        List<Booking> activeBookings = bookingDao.findByActive(true);
-        for(Booking b : activeBookings){
-            Date dateStart = b.getDateStart();
-            Date dateEnd = b.getDateEnd();
-            try {
-                //todo abc
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH");
-
-                List<Table> tables = getFreeTables(df.format(dateStart),df.format(dateEnd));
-                result.put(b,tables);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        return result;
+    public List<Booking> getActiveBookings() {
+        return bookingDao.findByActive(true);
 
     }
 
