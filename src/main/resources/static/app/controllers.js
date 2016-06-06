@@ -121,7 +121,7 @@ restauranteApp.controller('TableController', ['$scope', 'FreeTable', 'Date', 'Se
 
 restauranteControllers.controller('DashboardController', ['$scope', 'Book', 'Date', '$timeout', function($scope, Book, Date, $timeout){
 
-    var bookings = Book.getLatestBookings().query({from: Date.getRestDate("00")});
+    var bookings = Book.getLatestBookings().query({from: Date.getSpecificDate("2016-06-01", "00")});
     var labels;
     var data;
     var chartData = Book.getChartData().query(function(){
@@ -143,7 +143,7 @@ restauranteControllers.controller('DashboardController', ['$scope', 'Book', 'Dat
     //});
 
     $scope.dashboard = {
-        bookings: '',
+        bookings: bookings,
         totalBookings: 0,
         todaysBooks: 0,
         yesterdayBooks: 0,
@@ -201,6 +201,9 @@ restauranteControllers.controller('StaffController', ['$scope', 'Staff', functio
 
 restauranteControllers.controller('ReservationController', ['$scope', 'Reservation', function($scope, Reservation){
     var reservations = Reservation.getActiveReservations().query();
+    console.log(reservations);
+    //reservations = reservations[Object.keys(reservations)[0]];
+    //console.log(reservations);
     $scope.reservations = reservations;
 
     $scope.deactivate = function(id){

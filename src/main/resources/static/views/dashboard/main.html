@@ -96,7 +96,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="booking in dashboard.bookings">
+                    <tr ng-repeat="booking in dashboard.bookings | orderBy:'-id' | limitTo:5">
                         <td>{{ booking.id }}</td>
                         <td>6</td>
                         <td>{{ booking.dateStart | date:'dd.MM.yyyy' : 'UTC+1' }} r.</td>
